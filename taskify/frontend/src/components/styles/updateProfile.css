@@ -1,0 +1,59 @@
+body{
+  background-color: rgba(240, 239, 239, 0.822);
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+.modal-overlayy {
+  width: 100%;
+  margin-left: 0; 
+  margin-top: 5%;
+}
+label{
+  background: linear-gradient(
+    to right,
+    rgb(250,78,10),
+    rgb(247,12,204),
+    rgb(0,106,255),
+    rgb(79, 77, 156),
+    rgb(250,78,10)
+    );
+    background-clip: text;
+    color: transparent;
+}
+
+@media (max-width: 576px) {
+  .modal-overlayy {
+    width: 100%;
+    margin-left: 5%; 
+  }
+}
+
+@media (max-width: 768px) and (min-width: 577px) {
+  .modal-overlayy {
+    width: 100%;
+    margin-left: 9%;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 769px) {
+  .modal-overlayy {
+    width: 100%;
+    margin-left: 10%; 
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-overlayy {
+    width: 100%;
+    margin-left: 26%; 
+  }
+}

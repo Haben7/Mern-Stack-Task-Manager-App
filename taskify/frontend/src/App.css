@@ -1,0 +1,141 @@
+body{
+  background-color: rgba(240, 239, 239, 0.822);
+
+}
+
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  margin-top: 3%;
+
+}
+
+
+
+#titl{
+ color:rgb(113, 40, 116); 
+  text-align: center;
+  padding-top: 30px;
+  text-decoration: underline;
+}
+
+.task-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
+}
+#co{
+color: green;
+padding-top: 6px;
+}
+#inco{
+color: red;
+padding-top: 6px;
+}
+.add-task {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.add-task button {
+  padding: 10px 20px;
+}
+
+.task {
+  background-color: rgba(240, 239, 239, 0.822);
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  box-shadow: 0px 9px 9px rgba(14, 4, 4, 0.42);
+
+}
+
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.offcanvas{
+  background-color: rgb(218, 211, 211);
+  height: 60%;
+  border-radius: 15px;
+
+}
+.custom-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; 
+  width: 50px; 
+  height: 50px; 
+}
+
+.custom-toggler-icon {
+  display: inline-block;
+  width: 30px; 
+  height: 3px; 
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247, 12, 204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250, 78, 10)
+  );
+  position: relative;
+}
+
+.custom-toggler-icon::before,
+.custom-toggler-icon::after {
+  content: '';
+  display: block;
+  width: 30px; 
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247, 12, 204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250, 78, 10)
+  ); /* Apply gradient */
+  position: absolute;
+  left: 0;
+}
+
+.custom-toggler-icon::before {
+  top: -8px; /* Position the top line above */
+}
+
+.custom-toggler-icon::after {
+  top: 8px; /* Position the bottom line below */
+}
+
+h1{
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247,12,204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250,78,10)
+    );
+    background-clip: text;
+    color: transparent;}
+    #titl{
+      margin-left: 20%;
+      margin-top: 20%;
+    }

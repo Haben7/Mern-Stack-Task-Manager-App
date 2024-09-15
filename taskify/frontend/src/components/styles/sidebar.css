@@ -1,0 +1,175 @@
+.pls {
+  display: flex;
+  align-items: flex-start;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 204px;
+  padding: 20px;
+  background-color: rgba(240, 239, 239, 0.822);
+  border-radius: 20px;
+  box-shadow: 0px 9px 9px rgba(14, 4, 4, 0.42);
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.tll {
+  margin-left: 0%;
+  padding: 20px;
+  flex: 1;
+}
+
+  i {
+    background: linear-gradient(
+      to right,
+      rgb(250, 78, 10),
+      rgb(247, 12, 204),
+      rgb(0, 106, 255),
+      rgb(79, 77, 156),
+      rgb(250, 78, 10)
+    );
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 60%;
+  }
+  
+  .sidebar li {
+    margin: 30px 0;
+      padding: 6px 0;
+  }
+  
+  .sidebar li:hover {
+    background-color: rgba(159, 155, 165, 0.4);
+    border-radius: 10px;
+  }
+  
+  .sidebar a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  #icon{
+    margin-top: -5%;
+    margin-right: 3px;
+    font-size: 20px;
+  }
+  .new{
+    display: none; /* Hides the element */
+    visibility: hidden;    }
+   
+  @media (min-width: 992px) {
+  
+    .tll {
+      margin-left: 204px; 
+    }
+    .sidebar{
+      margin-top: 5.5%;
+
+    }
+    #icon{
+      margin-top: -5%;
+      margin-right: 3px;
+      font-size: 20px;
+    }
+    .new{
+      display: none; 
+      visibility: hidden;    }
+   
+    .sidebar ul {
+      margin-top: 60%;
+    }
+  
+    .sidebar li {
+      margin: 30px 0;
+      padding: 6px 0;
+    }
+  }
+  @media (max-width: 991px) {
+    .tll {
+      margin-left: 204px; 
+    }
+  
+    #icon{
+      margin-right: 3px;
+      margin-top: -5%;
+      font-size: 20px;
+    }
+    .new{
+      display: none; 
+      visibility: hidden;    }
+
+      .pls{
+        width: 100%;
+        margin-top: 21px;
+      }
+      
+      .sidebar{
+        margin-top: 7.5%;
+  
+      }
+      .sidebar ul {
+        margin-top: 60%;
+      }
+    
+      .sidebar li {
+        margin: 30px 0;
+        padding: 6px 0;
+      }
+  }
+  @media (max-width: 768px) {
+   .tll{
+      width: 100%;
+      margin-left: 0;
+    } 
+    .pls{
+      width: 100%;
+      margin-left: 10px;
+      margin-top: 15px;
+    }
+    .new{
+      display: block; 
+      visibility: visible;
+      margin-bottom: 10px;
+     
+    }
+    .sidebar {
+      display: none;
+      visibility: hidden;
+
+    }
+    i{
+      font-size: 25px;
+      }
+      
+  }
+  
+  @media (max-width: 576px) {
+ 
+    .new{
+      display: block; 
+      visibility: visible;
+      margin-bottom: 10px;
+
+    }
+    i{
+    font-size: 25px;
+    }
+   
+    .sidebar {
+      display: none;
+   visibility: hidden;
+    }
+  
+  }
+  

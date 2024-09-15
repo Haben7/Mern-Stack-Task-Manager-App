@@ -1,0 +1,110 @@
+.header {
+  padding: 15px;
+  margin-bottom: 0;
+}
+nav{
+  border-radius: 50px;
+  background-color: rgba(240, 239, 239, 1);
+  box-shadow: 0px 3px 3px rgba(4, 2, 2, 0.05);
+}
+.offcanvas{
+  background-color: rgb(218, 211, 211);
+  height: 60%;
+  border-radius: 15px;
+
+}
+.custom-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; 
+  width: 50px; 
+  height: 50px; 
+}
+
+.custom-toggler-icon {
+  display: inline-block;
+  width: 30px; 
+  height: 3px; 
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247, 12, 204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250, 78, 10)
+  );
+  position: relative;
+}
+
+.custom-toggler-icon::before,
+.custom-toggler-icon::after {
+  content: '';
+  display: block;
+  width: 30px; 
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247, 12, 204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250, 78, 10)
+  ); 
+  position: absolute;
+  left: 0;
+}
+
+.custom-toggler-icon::before {
+  top: -8px; 
+}
+
+.custom-toggler-icon::after {
+  top: 8px; 
+}
+
+h1{
+  background: linear-gradient(
+    to right,
+    rgb(18, 8, 168),
+    rgb(247,12,204),
+    rgb(113, 40, 116),
+    rgb(79, 77, 156),
+    rgb(250,78,10)
+    );
+    background-clip: text;
+    color: transparent;
+}
+#iconn{
+  background: linear-gradient(
+    to right,
+    rgb(250,78,10),
+    rgb(247,12,204),
+    rgb(0,106,255),
+    rgb(79, 77, 156),
+    rgb(250,78,10)
+    );
+    background-clip: text;
+    color: transparent;
+    font-size: 26px;
+}
+h5{
+  display: inline;
+}
+button {
+ background-color: rgba(240, 239, 239, 0.822);  
+  border: none;
+  padding: 5px 10px;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+ a{
+  text-decoration: none;
+  color: black;
+ } 
+ #log{
+  color: black;
+ }
+
