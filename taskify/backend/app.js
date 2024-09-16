@@ -12,7 +12,7 @@ const authenticateToken = require('./routes/auth');
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000, https://mern-stack-task-manager-app-1.onrender.com',
+  origin: 'http://localhost:3000, https://taskifywebapp.netlify.app ',
   credentials: true,
 }));
 
