@@ -21,7 +21,7 @@ const UpdateProfile = () => {
         return;
       }
 
-      const response = await axios.put('http://localhost:4000/api/v1/update-password', {
+      const response = await axios.put('https://mern-stack-task-manager-app-1.onrender.com/api/v1/update-password', {
         username,
         email,
         oldPassword,

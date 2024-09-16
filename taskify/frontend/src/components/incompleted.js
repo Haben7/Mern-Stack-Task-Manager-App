@@ -17,7 +17,7 @@ function IncompleteTasks() {
       const userId = localStorage.getItem('id');
       const token = localStorage.getItem('token');
 
-      const response = await fetch('http://localhost:4000/api/v2/get-incomplete-tasks', {
+      const response = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/v2/get-incomplete-tasks', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

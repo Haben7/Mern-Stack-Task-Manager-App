@@ -174,7 +174,7 @@ const Task = ({ task, onDelete, onUpdate }) => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:4000/api/v2/update-task/${task._id}`, {
+      const response = await fetch(`https://mern-stack-task-manager-app-1.onrender.com/api/v2/update-task/${task._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ const Task = ({ task, onDelete, onUpdate }) => {
     try {
       const token = localStorage.getItem('token');
   
-      const response = await fetch(`http://localhost:4000/api/v2/update-complete-task/${task._id}`, {
+      const response = await fetch(`https://mern-stack-task-manager-app-1.onrender.com/api/v2/update-complete-task/${task._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -223,7 +223,7 @@ const Task = ({ task, onDelete, onUpdate }) => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:4000/api/v2/update-imp-task/${task._id}`, {
+      const response = await fetch(`https://mern-stack-task-manager-app-1.onrender.com/api/v2/update-imp-task/${task._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

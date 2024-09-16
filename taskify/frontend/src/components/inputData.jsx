@@ -11,7 +11,7 @@ const InputData = ({ isOpen, onClose, onSubmit }) => {
         const userId = localStorage.getItem('id');
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:4000/api/v2/create-task', {
+        const response = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/v2/create-task', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

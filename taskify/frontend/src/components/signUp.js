@@ -30,7 +30,7 @@ function SignUp() {
       if (Data.username === "" || Data.email === "" || Data.password === "") {
         alert("All fields are required");
       } else {
-        const response = await axios.post("http://localhost:4000/api/v1/sign-up", Data);
+        const response = await axios.post("https://mern-stack-task-manager-app-1.onrender.com/api/v1/sign-up", Data);
         
         setData({ username: "", email: "", password: "" });
         alert("User registered successfully");

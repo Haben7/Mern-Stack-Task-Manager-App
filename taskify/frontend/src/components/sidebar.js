@@ -14,7 +14,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/v2/get-all-tasks", { headers });
+        const response = await axios.get("https://mern-stack-task-manager-app-1.onrender.com/api/v2/get-all-tasks", { headers });
         console.log(response.data.data); 
         setData(response.data.data);
       } catch (error) {
