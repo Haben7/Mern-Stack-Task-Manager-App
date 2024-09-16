@@ -12,7 +12,7 @@ const authenticateToken = require('./routes/auth');
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000, https://taskifywebapp.netlify.app ',
+  origin: 'https://taskifywebapp.netlify.app ',
   credentials: true,
 }));
 
