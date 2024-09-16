@@ -68,7 +68,6 @@ router.post('/log-in', async (req, res) => {
       return res.status(400).json({ message: 'Invalid Credentials' });
     }
 
-    // Check if JWT_SECRET is loaded correctly
     if (!process.env.JWT_SECRET) {
       console.error('JWT_SECRET is not defined in environment variables');
       return res.status(500).json({ message: 'Internal Server Error: Missing JWT Secret' });
@@ -134,18 +133,18 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-// Verify Code Route
-router.post('/verify-code', (req, res) => {
+router.post('/verify-code', async (req, res) => {
   const { email, code } = req.body;
 
   try {
-    // Check if the provided code matches the stored code
     if (verificationCodes[email] === code) {
-      // Optionally clear the code after successful verification
       delete verificationCodes[email];
 
-      // Automatically log in the user by generating a JWT token
-      const user = User.findOne({ email });
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
       const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '2d' });
 
       res.status(200).json({
@@ -160,6 +159,7 @@ router.post('/verify-code', (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 
 // Update Password Route

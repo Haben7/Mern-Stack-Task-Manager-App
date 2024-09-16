@@ -15,7 +15,7 @@ const UpdateProfile = () => {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token'); // Ensure token is available
+      const token = localStorage.getItem('token'); 
       if (!token) {
         setError('User is not authenticated.');
         return;
