@@ -8,20 +8,17 @@ const authenticateToken  = require("./auth");
 router.post("/create-task", authenticateToken, async (req, res) => {
   try {
     const { title, desc } = req.body;
-    const { id } = req.headers;
+    const userId = req.user.id;  // Get user ID from the token
 
     if (!title || !desc) {
       return res.status(400).json({ message: "Title and description are required" });
-    }
-    if (!id) {
-      return res.status(400).json({ message: "User ID is required in headers" });
     }
 
     const newTask = new Task({ title, desc });
     const savedTask = await newTask.save();
 
     const userUpdate = await User.findByIdAndUpdate(
-      id,
+      userId,
       { $push: { tasks: savedTask._id } },
       { new: true, runValidators: true }
     );
@@ -36,6 +33,7 @@ router.post("/create-task", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 
 
 // Get all Tasks
