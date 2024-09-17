@@ -13,6 +13,7 @@ const ForgotPassword = () => {
     navigate('/signIn');
   };
 
+  // Step 1: Submit email for verification code
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -31,19 +32,20 @@ const ForgotPassword = () => {
         throw new Error(data.message);
       }
 
-      alert(data.message);
+      alert('Verification code sent to your email.');
       setStep(2);
     } catch (err) {
       setError('Something went wrong. Please try again.');
     }
   };
 
+  // Step 2: Submit verification code
   const handleCodeSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const res = await fetch('/api/auth/verify-code', {
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/verify-code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +58,8 @@ const ForgotPassword = () => {
         throw new Error(data.message);
       }
 
+      // Store token for password reset
+      localStorage.setItem('resetToken', data.token);
       alert('Code verified. Please enter your new password.');
       setStep(3);
     } catch (err) {
@@ -63,17 +67,19 @@ const ForgotPassword = () => {
     }
   };
 
+  // Step 3: Submit new password
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const res = await fetch('/api/auth/update-password', {
+      const token = localStorage.getItem('resetToken');
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/update-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, token: localStorage.getItem('resetToken') }), // Store token from backend
+        body: JSON.stringify({ email, password, token }), // Send email, new password, and token
       });
 
       const data = await res.json();

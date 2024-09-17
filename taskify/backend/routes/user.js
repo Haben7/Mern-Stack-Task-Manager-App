@@ -95,7 +95,6 @@ router.post('/log-in', async (req, res) => {
   }
 });
 
-// Forgot Password Route
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 
@@ -105,10 +104,10 @@ router.post('/forgot-password', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const verificationCode = crypto.randomBytes(3).toString('hex'); // 6-digit code
+    const verificationCode = crypto.randomBytes(3).toString('hex');
     verificationCodes[email] = verificationCode;
 
-    // Send email
+    // Send email with verification code
     const mailOptions = {
       from: `"Your App" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -118,7 +117,6 @@ router.post('/forgot-password', async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-
     res.status(200).json({ message: 'Verification code sent to your email' });
   } catch (error) {
     console.error('Error sending verification code:', error);
@@ -126,16 +124,18 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-// Verify Code Route
+
 router.post('/verify-code', async (req, res) => {
   const { email, code } = req.body;
 
   if (verificationCodes[email] === code) {
-    res.status(200).json({ message: 'Code verified', token: jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' }) });
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    res.status(200).json({ message: 'Code verified', token });
   } else {
     res.status(400).json({ message: 'Invalid verification code' });
   }
 });
+
 
 
 
