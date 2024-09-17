@@ -4,20 +4,21 @@ import { useNavigate } from 'react-router-dom';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
-  const [step, setStep] = useState(1); // 1: Email, 2: Code Verification
+  const [password, setPassword] = useState('');
+  const [step, setStep] = useState(1); // 1: Email, 2: Code Verification, 3: Reset Password
   const [error, setError] = useState('');
   const navigate = useNavigate();
- 
-      const handleClose = () => {
-     navigate('/signIn');
+
+  const handleClose = () => {
+    navigate('/signIn');
   };
-  // Handle email submission for password reset
+
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const res = await fetch('/api/auth/forgot-password', {
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,18 +26,18 @@ const ForgotPassword = () => {
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json();
       if (!res.ok) {
-        throw new Error('Failed to send verification code');
+        throw new Error(data.message);
       }
 
-      alert('Verification code sent to your email.');
-      setStep(2); 
+      alert(data.message);
+      setStep(2);
     } catch (err) {
       setError('Something went wrong. Please try again.');
     }
   };
 
-  // Handle verification code submission
   const handleCodeSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -55,158 +56,90 @@ const ForgotPassword = () => {
         throw new Error(data.message);
       }
 
-      alert('Code verified. You are now logged in.');
-      localStorage.setItem('token', data.token); 
-      navigate('/'); 
+      alert('Code verified. Please enter your new password.');
+      setStep(3);
     } catch (err) {
       setError('Invalid verification code. Please try again.');
     }
   };
 
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const res = await fetch('/api/auth/update-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, token: localStorage.getItem('resetToken') }), // Store token from backend
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      alert('Password updated successfully.');
+      navigate('/signIn');
+    } catch (err) {
+      setError('Error updating password. Please try again.');
+    }
+  };
+
   return (
     <div className="modal-overlay">
-    <div className="modal-content">
-     <button className="close-button" onClick={handleClose}>
-       &times;
-     </button>
-      {step === 1 ? (
-        // Step 1: Email Input
-        
+      <div className="modal-content">
+        <button className="close-button" onClick={handleClose}>
+          &times;
+        </button>
+        {step === 1 && (
           <form onSubmit={handleEmailSubmit}>
-          <h2>Forgot Password</h2>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-            className="modal-input"
-
-          />
-          <button type="submit" className="submit-button">Send Verification Code</button>
-          {error && <p className="error-message">{error}</p>}
-        </form>
-      ) : (
-        // Step 2: Code Verification
-        <form onSubmit={handleCodeSubmit}>
-          <h2>Enter Verification Code</h2>
-          <input
-            type="text"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Enter the code"
-            required
-          />
-          <button type="submit">Verify Code</button>
-          {error && <p className="error-message">{error}</p>}
-        </form>
-      )}
-    </div>
+            <h2>Forgot Password</h2>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="modal-input"
+            />
+            <button type="submit" className="submit-button">Send Verification Code</button>
+            {error && <p className="error-message">{error}</p>}
+          </form>
+        )}
+        {step === 2 && (
+          <form onSubmit={handleCodeSubmit}>
+            <h2>Enter Verification Code</h2>
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Enter the code"
+              required
+            />
+            <button type="submit">Verify Code</button>
+            {error && <p className="error-message">{error}</p>}
+          </form>
+        )}
+        {step === 3 && (
+          <form onSubmit={handlePasswordSubmit}>
+            <h2>Reset Password</h2>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter new password"
+              required
+            />
+            <button type="submit">Update Password</button>
+            {error && <p className="error-message">{error}</p>}
+          </form>
+        )}
+      </div>
     </div>
   );
 };
 
 export default ForgotPassword;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const ForgotPassword = () => {
-//   const [email, setEmail] = useState('');
-//   const [error, setError] = useState('');
-//   const navigate = useNavigate();
-
-//   const handleClose = () => {
-//     navigate('/signIn');
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError(''); // Clear previous errors
-
-//     try {
-//       const res = await fetch('/api/auth/forgot-password', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ email }),
-//       });
-
-//       // Log the raw response for debugging
-//       const textResponse = await res.text();
-//       console.log('Response Text:', textResponse);
-
-//       if (!res.ok) {
-//         // If the response status is not OK, handle it as an error
-//         throw new Error(textResponse);
-//       }
-
-//       const data = JSON.parse(textResponse); // Parse response as JSON
-//       alert(data.message);
-//       handleClose(); // Close the modal after submission
-//     } catch (err) {
-//       console.error('Error:', err.message);
-//       setError('Something went wrong. Please try again.');
-//     }
-//   };
-
-//   return (
-//     <div className="modal-overlay">
-//       <div className="modal-content">
-//         <button className="close-button" onClick={handleClose}>
-//           &times;
-//         </button>
-//         <h2 id="newTask">Forgot Password</h2>
-//         <form onSubmit={handleSubmit}>
-//           <input
-//             type="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             placeholder="Enter your email"
-//             required
-//             className="modal-input"
-//           />
-//           <button className="submit-button" type="submit">
-//             Reset Password
-//           </button>
-//         </form>
-//         {error && <p className="error-message">{error}</p>} {/* Display error message */}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ForgotPassword;

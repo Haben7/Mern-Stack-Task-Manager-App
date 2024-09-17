@@ -1,11 +1,15 @@
 // Require dotenv at the top of your main server file
 require('dotenv').config();
+const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const transporter = require('../config/mailer');
+const verificationCodes = {};
+
 
 // Sign-Up (Register) Route
 router.post("/sign-up", async (req, res) => {
@@ -91,10 +95,7 @@ router.post('/log-in', async (req, res) => {
   }
 });
 
-// Temporary store for verification codes (in a real app, store in a database)
-const verificationCodes = {};
-
-// Forgot password route - Send verification code
+// Forgot Password Route
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 
@@ -104,59 +105,35 @@ router.post('/forgot-password', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Generate a random 6-digit verification code
-    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-    // Store the code (in a real app, store in the database with expiry time)
+    const verificationCode = crypto.randomBytes(3).toString('hex'); // 6-digit code
     verificationCodes[email] = verificationCode;
 
-    // Send email with the verification code
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail', 
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
+    // Send email
+    const mailOptions = {
+      from: `"Your App" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: 'Password Reset Code',
+      text: `Your verification code is ${verificationCode}`,
+      html: `<p>Your verification code is <strong>${verificationCode}</strong></p>`,
+    };
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Password Reset Verification Code',
-      text: `Your password reset verification code is: ${verificationCode}`,
-    });
+    await transporter.sendMail(mailOptions);
 
-    res.json({ message: 'Verification code sent successfully' });
+    res.status(200).json({ message: 'Verification code sent to your email' });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error sending verification code:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
+// Verify Code Route
 router.post('/verify-code', async (req, res) => {
   const { email, code } = req.body;
 
-  try {
-    if (verificationCodes[email] === code) {
-      delete verificationCodes[email];
-
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-
-      const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '2d' });
-
-      res.status(200).json({
-        message: 'Code verified successfully. You are now logged in.',
-        token,
-      });
-    } else {
-      return res.status(400).json({ message: 'Invalid verification code' });
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+  if (verificationCodes[email] === code) {
+    res.status(200).json({ message: 'Code verified', token: jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' }) });
+  } else {
+    res.status(400).json({ message: 'Invalid verification code' });
   }
 });
 

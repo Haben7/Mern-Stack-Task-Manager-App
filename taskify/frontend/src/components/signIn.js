@@ -29,8 +29,7 @@ function SignIn() {
       if (Data.username === "" || Data.password === "") {
         alert("All fields are required");
       } else {
-        const response = await axios.post(
-          "https://mern-stack-task-manager-app-1.onrender.com/api/v1/log-in", 
+        const response = await axios.post("https://mern-stack-task-manager-app-1.onrender.com/api/v1/log-in", 
           Data, 
           {
             headers: {
