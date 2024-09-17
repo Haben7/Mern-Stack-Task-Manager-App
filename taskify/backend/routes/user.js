@@ -94,7 +94,7 @@ router.post('/log-in', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
+// forgot password route
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 

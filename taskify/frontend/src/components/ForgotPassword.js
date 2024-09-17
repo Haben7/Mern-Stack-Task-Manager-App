@@ -5,7 +5,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
-  const [step, setStep] = useState(1); // 1: Email, 2: Code Verification, 3: Reset Password
+  const [step, setStep] = useState(1); 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -13,7 +13,6 @@ const ForgotPassword = () => {
     navigate('/signIn');
   };
 
-  // Step 1: Submit email for verification code
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -39,7 +38,6 @@ const ForgotPassword = () => {
     }
   };
 
-  // Step 2: Submit verification code
   const handleCodeSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -66,34 +64,6 @@ const ForgotPassword = () => {
       setError('Invalid verification code. Please try again.');
     }
   };
-
-  // Step 3: Submit new password
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-
-    try {
-      const token = localStorage.getItem('resetToken');
-      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/update-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, token }), // Send email, new password, and token
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message);
-      }
-
-      alert('Password updated successfully.');
-      navigate('/signIn');
-    } catch (err) {
-      setError('Error updating password. Please try again.');
-    }
-  };
-
   return (
     <div className="modal-overlay">
       <div className="modal-content">
