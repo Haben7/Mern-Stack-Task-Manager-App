@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     setError('');
 
     try {
-      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/forgot-password', {
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/v1/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
     setError('');
 
     try {
-      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/verify-code', {
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/v1/verify-code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
 
     try {
       const token = localStorage.getItem('resetToken');
-      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/reset-password', {
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/v1/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
