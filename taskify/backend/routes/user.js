@@ -43,12 +43,30 @@ router.post("/sign-up", async (req, res) => {
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
-    res.status(200).json({ message: "User registered successfully" });
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET is not defined in environment variables');
+      return res.status(500).json({ message: 'Internal Server Error: Missing JWT Secret' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: newUser._id, username: newUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '2d' }
+    );
+
+    res.status(200).json({
+      message: "User registered successfully",
+      id: newUser._id,
+      token
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 // Login Route
 router.post('/log-in', async (req, res) => {
@@ -63,13 +81,13 @@ router.post('/log-in', async (req, res) => {
     // Check if the user exists
     const existingUser = await User.findOne({ username });
     if (!existingUser) {
-      return res.status(400).json({ message: 'Invalid Credentials' });
+      return res.status(400).json({ message: 'please enter correct username' });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, existingUser.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid Credentials' });
+      return res.status(400).json({ message: 'incorrect password' });
     }
 
     if (!process.env.JWT_SECRET) {
@@ -166,9 +184,6 @@ router.post('/log-in', async (req, res) => {
 //     res.status(500).json({ message: 'Internal Server Error' });
 //   }
 // });
-
-
-
 
 // Update Password Route
 router.put('/update-password', async (req, res) => {

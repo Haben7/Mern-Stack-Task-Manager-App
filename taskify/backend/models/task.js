@@ -9,7 +9,6 @@ const TaskSchema = new mongoose.Schema(
     desc: {
       type: String,
       required: true,
-      unique: true,
     },
     important: {
       type: Boolean,

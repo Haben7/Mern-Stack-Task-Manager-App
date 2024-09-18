@@ -16,3 +16,4 @@ const transporter = nodemailer.createTransport({
 });
 //http://localhost:4000,post/..email
 module.exports = transporter;
+//all recipie.com 
