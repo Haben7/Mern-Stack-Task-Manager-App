@@ -94,78 +94,78 @@ router.post('/log-in', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-// forgot password route
-router.post('/forgot-password', async (req, res) => {
-  const { email } = req.body;
+// // forgot password route
+// router.post('/forgot-password', async (req, res) => {
+//   const { email } = req.body;
 
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
 
-    const verificationCode = crypto.randomBytes(3).toString('hex');
-    verificationCodes[email] = verificationCode;
+//     const verificationCode = crypto.randomBytes(3).toString('hex');
+//     verificationCodes[email] = verificationCode;
 
-    // Send email with verification code
-    const mailOptions = {
-      from: `"Your App" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: 'Password Reset Code',
-      text: `Your verification code is ${verificationCode}`,
-      html: `<p>Your verification code is <strong>${verificationCode}</strong></p>`,
-    };
+//     // Send email with verification code
+//     const mailOptions = {
+//       from: `"Your App" <${process.env.EMAIL_USER}>`,
+//       to: email,
+//       subject: 'Password Reset Code',
+//       text: `Your verification code is ${verificationCode}`,
+//       html: `<p>Your verification code is <strong>${verificationCode}</strong></p>`,
+//     };
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Verification code sent to your email' });
-  } catch (error) {
-    console.error('Error sending verification code:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
-
-router.post('/verify-code', async (req, res) => {
-  const { email, code } = req.body;
-
-  if (verificationCodes[email] === code) {
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
-    res.status(200).json({ message: 'Code verified', token });
-  } else {
-    res.status(400).json({ message: 'Invalid verification code' });
-  }
-});
+//     await transporter.sendMail(mailOptions);
+//     res.status(200).json({ message: 'Verification code sent to your email' });
+//   } catch (error) {
+//     console.error('Error sending verification code:', error);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// });
 
 
-router.post('/reset-password', async (req, res) => {
-  const { password } = req.body;
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+// router.post('/verify-code', async (req, res) => {
+//   const { email, code } = req.body;
 
-  if (!token) return res.status(401).json({ message: 'Authorization token missing' });
+//   if (verificationCodes[email] === code) {
+//     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
+//     res.status(200).json({ message: 'Code verified', token });
+//   } else {
+//     res.status(400).json({ message: 'Invalid verification code' });
+//   }
+// });
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Find the user by email from the decoded token
-    const user = await User.findOne({ email: decoded.email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+// router.post('/reset-password', async (req, res) => {
+//   const { password } = req.body;
+//   const authHeader = req.headers['authorization'];
+//   const token = authHeader && authHeader.split(' ')[1];
 
-    // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
+//   if (!token) return res.status(401).json({ message: 'Authorization token missing' });
 
-    // Update the password
-    user.password = hashedPassword;
-    await user.save();
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    res.status(200).json({ message: 'Password reset successfully' });
-  } catch (error) {
-    console.error('Error resetting password:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
+//     // Find the user by email from the decoded token
+//     const user = await User.findOne({ email: decoded.email });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Hash the new password
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Update the password
+//     user.password = hashedPassword;
+//     await user.save();
+
+//     res.status(200).json({ message: 'Password reset successfully' });
+//   } catch (error) {
+//     console.error('Error resetting password:', error);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// });
 
 
 

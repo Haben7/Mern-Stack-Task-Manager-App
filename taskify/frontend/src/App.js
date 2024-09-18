@@ -9,7 +9,7 @@ import Completed from './components/completed';
 import SignUp from './components/signUp';
 import SignIn from './components/signIn';
 import UpdateProfile from './components/updateProfile'; 
-import ForgotPassword from './components/ForgotPassword';
+// import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   const navigate = useNavigate(); 
@@ -52,7 +52,7 @@ function App() {
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/signIn" element={<SignIn />} />
       <Route path="/updateProfile" element={<UpdateProfile />} />
-      <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      {/* <Route path="/ForgotPassword" element={<ForgotPassword />} /> */}
     </Routes>
   );
 }
