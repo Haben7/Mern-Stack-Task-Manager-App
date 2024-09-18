@@ -32,7 +32,7 @@ const ForgotPassword = () => {
       }
 
       alert('Verification code sent to your email.');
-      setStep(2);
+      setStep(2); // Proceed to step 2 (verification code entry)
     } catch (err) {
       setError('Something went wrong. Please try again.');
     }
@@ -59,13 +59,12 @@ const ForgotPassword = () => {
       // Store token for password reset
       localStorage.setItem('resetToken', data.token);
       alert('Code verified. Please enter your new password.');
-      setStep(3);
+      setStep(3); // Proceed to step 3 (password reset)
     } catch (err) {
       setError('Invalid verification code. Please try again.');
     }
   };
 
-  // Define the handlePasswordSubmit function to handle password reset
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setError('');

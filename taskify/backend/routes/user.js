@@ -137,6 +137,37 @@ router.post('/verify-code', async (req, res) => {
 });
 
 
+router.post('/reset-password', async (req, res) => {
+  const { password } = req.body;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) return res.status(401).json({ message: 'Authorization token missing' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find the user by email from the decoded token
+    const user = await User.findOne({ email: decoded.email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update the password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 
 // Update Password Route
