@@ -29,8 +29,9 @@ function SignIn() {
       if (Data.username === "" || Data.password === "") {
         alert("All fields are required");
       } else {
-        const response = await axios.post("https://mern-stack-task-manager-app-1.onrender.com/api/v1/log-in", 
-          Data, 
+        const response = await axios.post(
+          "https://mern-stack-task-manager-app-1.onrender.com/api/v1/log-in",
+          Data,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -38,6 +39,8 @@ function SignIn() {
             withCredentials: true, 
           }
         );
+  
+        // If login is successful
         setData({ username: "", password: "" });
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("token", response.data.token);
@@ -45,9 +48,25 @@ function SignIn() {
         navigate("/home");
       }
     } catch (error) {
-      alert("An error occurred during login");
+      // If server returns an error, catch and handle it
+      if (error.response && error.response.data) {
+        const serverMessage = error.response.data.message;
+  
+        // Display specific server-side error messages
+        if (serverMessage === "please enter correct username") {
+          alert("Incorrect username, please try again.");
+        } else if (serverMessage === "incorrect password") {
+          alert("Incorrect password, please try again.");
+        } else {
+          alert(serverMessage); // Default: Display whatever message the server sends
+        }
+      } else {
+        // Handle unexpected errors
+        alert("An error occurred during login");
+      }
     }
   };
+  
   
 
   return (
