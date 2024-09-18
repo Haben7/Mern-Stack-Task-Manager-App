@@ -27,11 +27,17 @@ function SignUp() {
   // Submit handler
   const submit = async () => {
     try {
+      // Frontend validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
       if (Data.username === "" || Data.email === "" || Data.password === "") {
         alert("All fields are required");
       } else if (Data.username.length < 3) {
         alert("Username should have at least 3 characters");
+      } else if (!emailRegex.test(Data.email)) {
+        alert("Please enter a valid email address");
       } else {
+        // Proceed with backend request if all fields are valid
         const response = await axios.post("https://mern-stack-task-manager-app-1.onrender.com/api/v1/sign-up", Data);
   
         setData({ username: "", email: "", password: "" });
@@ -51,14 +57,17 @@ function SignUp() {
           alert("Username already exists, please choose another");
         } else if (serverMessage === "Email already exists") {
           alert("Email already exists, please choose another");
+        } else if (serverMessage.includes("valid email address")) {
+          alert("Invalid email format, please enter a correct email address");
         } else {
-          alert(serverMessage); 
+          alert(serverMessage);
         }
       } else {
         alert("An error occurred during registration");
       }
     }
   };
+  
   
 
   return (

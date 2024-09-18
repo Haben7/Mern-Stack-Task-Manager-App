@@ -62,7 +62,12 @@ router.post("/sign-up", async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    // Handle Mongoose validation errors (including invalid email format)
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: error.message });  // Capture email format error
+    }
+
+    // Handle any other server errors
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
