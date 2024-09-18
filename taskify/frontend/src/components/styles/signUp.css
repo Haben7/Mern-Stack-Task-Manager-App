@@ -1,11 +1,10 @@
-/* Base styles */
 .container {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 45px;
-  width: 90%; /* Adjust width to be responsive */
-  max-width: 500px; /* Maximum width to keep the layout controlled */
+  margin-top: -3%;
+  width: 90%; 
+  max-width: 500px; 
   background-color: rgba(240, 239, 239, 0.822);
 }
 
@@ -20,7 +19,7 @@
 
 .text {
   color: #3C009d;
-  font-size: 2.5rem; /* Use rem for better scaling */
+  font-size: 2.5rem; 
   font-weight: 700;
 }
 
@@ -42,8 +41,8 @@
   display: flex;
   align-items: center;
   margin: auto;
-  width: 100%; /* Full width for better responsiveness */
-  max-width: 480px; /* Maximum width to keep the input controlled */
+  width: 100%; 
+  max-width: 480px;
   height: 80px;
   background: #eaeaea;
   border-radius: 6px;
@@ -55,19 +54,19 @@
 
 .input input {
   height: 50px;
-  width: 100%; /* Full width for better responsiveness */
+  width: 100%; 
   background: transparent;
   border: none;
   outline: none;
   color: #797979;
-  font-size: 1.2rem; /* Use rem for better scaling */
+  font-size: 1.2rem; 
 }
 
 .forgot-password {
   padding-left: 62px;
   margin-top: 27px;
   color: #797979;
-  font-size: 1rem; /* Use rem for better scaling */
+  font-size: 1rem; 
 }
 
 .forgot-password span {
@@ -79,7 +78,7 @@
   padding-left: 62px;
   margin-top: 27px;
   color: #797979;
-  font-size: 1rem; /* Use rem for better scaling */
+  font-size: 1rem; 
   margin-top: -6%;
 }
 
@@ -103,7 +102,7 @@
   color: #fff;
   background: #4c00b4;
   border-radius: 50px;
-  font-size: 1.2rem; /* Use rem for better scaling */
+  font-size: 1.2rem; 
   font-weight: 700;
   cursor: pointer;
 }
@@ -120,43 +119,43 @@
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
   .text {
-    font-size: 2rem; /* Smaller text size for smaller screens */
+    font-size: 2rem; 
   }
 
   .input {
-    max-width: 90%; /* Make inputs full width on smaller screens */
+    max-width: 90%; 
   }
 
   .input input {
-    font-size: 1rem; /* Adjust font size for smaller screens */
+    font-size: 1rem; 
   }
 
   .submit {
-    width: 180px; /* Smaller button on smaller screens */
-    font-size: 1rem; /* Adjust font size for smaller screens */
+    width: 180px; 
+    font-size: 1rem; 
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    margin-top: 20px; /* Adjust margin for smaller screens */
-    width: 95%; /* Make container wider on very small screens */
+    margin-top: 20px; 
+    width: 95%; 
   }
 
   .text {
-    font-size: 1.5rem; /* Smaller text size for very small screens */
+    font-size: 1.5rem; 
   }
 
   .input {
-    max-width: 100%; /* Full width for inputs on very small screens */
+    max-width: 100%;
   }
 
   .input input {
-    font-size: 0.9rem; /* Adjust font size for very small screens */
+    font-size: 0.9rem; 
   }
 
   .submit {
-    width: 150px; /* Smaller button on very small screens */
-    font-size: 0.9rem; /* Adjust font size for very small screens */
+    width: 150px;
+    font-size: 0.9rem; 
   }
 }

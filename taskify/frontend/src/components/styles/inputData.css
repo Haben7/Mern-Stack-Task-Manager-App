@@ -13,7 +13,7 @@
 }
 
 .modal-content {
-  background: #1f2937; /* Dark background */
+  background: #1f2937; 
   padding: 60px;
   border-radius: 8px;
   width: 50%;
@@ -81,13 +81,13 @@
 @media (max-width: 576px) {
   .modal-content {
     width: 90%;
-    height: auto; /* Adjust height to fit content */
+    height: auto; 
     padding: 20px;
   }
 
   .modal-input,
   .modal-textarea {
-    height: auto; /* Adjust height for better fit */
+    height: auto; 
   }
 
   .submit-button {
@@ -104,13 +104,13 @@
 @media (max-width: 768px) and (min-width: 577px) {
   .modal-content {
     width: 75%;
-    height: auto; /* Adjust height to fit content */
+    height: auto; 
     padding: 30px;
   }
 
   .modal-input,
   .modal-textarea {
-    height: auto; /* Adjust height for better fit */
+    height: auto; 
   }
 
   .submit-button {
@@ -127,13 +127,13 @@
 @media (max-width: 991px) and (min-width: 769px) {
   .modal-content {
     width: 60%;
-    height: auto; /* Adjust height to fit content */
+    height: auto; 
     padding: 40px;
   }
 
   .modal-input,
   .modal-textarea {
-    height: auto; /* Adjust height for better fit */
+    height: auto; 
   }
 
   .submit-button {
@@ -156,7 +156,7 @@
 
   .modal-input,
   .modal-textarea {
-    height: 40px; /* Maintain height for larger screens */
+    height: 40px; 
   }
 
   .submit-button {
