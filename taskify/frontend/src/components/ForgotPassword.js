@@ -64,6 +64,35 @@ const ForgotPassword = () => {
       setError('Invalid verification code. Please try again.');
     }
   };
+
+  // Define the handlePasswordSubmit function to handle password reset
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const token = localStorage.getItem('resetToken');
+      const res = await fetch('https://mern-stack-task-manager-app-1.onrender.com/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Pass the token
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      alert('Password updated successfully.');
+      navigate('/signIn'); // Redirect to sign-in page after success
+    } catch (err) {
+      setError('Unable to reset password. Please try again.');
+    }
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
