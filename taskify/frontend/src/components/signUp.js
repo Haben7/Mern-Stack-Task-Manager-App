@@ -29,21 +29,37 @@ function SignUp() {
     try {
       if (Data.username === "" || Data.email === "" || Data.password === "") {
         alert("All fields are required");
+      } else if (Data.username.length < 3) {
+        alert("Username should have at least 3 characters");
       } else {
         const response = await axios.post("https://mern-stack-task-manager-app-1.onrender.com/api/v1/sign-up", Data);
-        
+  
         setData({ username: "", email: "", password: "" });
-        alert("User registered successfully");
+        alert(response.data.message || "User registered successfully");
+  
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("token", response.data.token);
-     
+  
         dispatch(authActions.login());
-        navigate("/home"); 
+        navigate("/home");
       }
     } catch (error) {
-      alert("An error occurred during registration");
+      if (error.response && error.response.data) {
+        const serverMessage = error.response.data.message;
+  
+        if (serverMessage === "Username already exists") {
+          alert("Username already exists, please choose another");
+        } else if (serverMessage === "Email already exists") {
+          alert("Email already exists, please choose another");
+        } else {
+          alert(serverMessage); 
+        }
+      } else {
+        alert("An error occurred during registration");
+      }
     }
   };
+  
 
   return (
     <div className="container">
