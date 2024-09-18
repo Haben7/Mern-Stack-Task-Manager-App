@@ -108,9 +108,9 @@ function SignIn() {
         Lost Password? <a href="./ForgotPassword"><span>Click here</span></a>
       </div>
 
-      <div className="forgot-password">
+      {/* <div className="forgot-password">
         Not having an account? <Link to="/signUp" className="signup-link">Sign Up here</Link>
-      </div>
+      </div> */}
     </div>
   );
 }
