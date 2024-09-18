@@ -85,9 +85,9 @@ function SignIn() {
       <div className="submit-container">
         <button className="submit" onClick={submit}>Login</button>
       </div>
-      <div className="forgot-password">
+      {/* <div className="forgot-password">
         Lost Password? <a href="./ForgotPassword"><span>Click here</span></a>
-      </div>
+      </div> */}
 
       <div className="forgot-password">
         Not having an account? <Link to="/signUp" className="signup-link">Sign Up here</Link>
